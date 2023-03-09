@@ -752,7 +752,18 @@ class TDocument():
         self.__post_init__()
         self.relationships_recursive.cache_clear()
 
+    # combine any tables with overlapping ids
+    def combine_tables(self, table_array_ids: List[List[str]]):
+        head, *tail = table_array_ids
+        if(len(tail) == 0):
+            return [head]
+        if(head[-1] == tail[0][0]):
+            return self.combine_tables([head + tail[0][1:]] + tail[1:])
+        else:
+            return [head] + self.combine_tables(tail)
+
     def merge_tables(self, table_array_ids: List[List[str]]):
+        table_array_ids = [] if len(table_array_ids) == 0 else self.combine_tables(table_array_ids)
         for table_ids in table_array_ids:
             if len(table_ids) < 2:
                 raise ValueError("no parent and child tables given")
