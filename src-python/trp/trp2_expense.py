@@ -91,8 +91,10 @@ class TLabelDetectionSchema(BaseSchema):
     Class for LabelDetection Schema
     """
     text = m.fields.String(data_key="Text", required=False, allow_none=False)
-    geometry = m.fields.Nested(TGeometrySchema, data_key="Geometry", required=False, allow_none=False)
-    confidence = m.fields.Float(data_key="Confidence", required=False, allow_none=False)
+    geometry = m.fields.Nested(
+        TGeometrySchema, data_key="Geometry", required=False, allow_none=False)
+    confidence = m.fields.Float(
+        data_key="Confidence", required=False, allow_none=False)
 
     @post_load
     def make_tlabeldetection(self, data, **kwargs):
@@ -105,7 +107,7 @@ class TValueDetection():
     Class for ValueDetection in AnalyzeExpense API Response
     """
     text: str = field(default="")
-    geometry: TGeometry = field(default=None)    #type: ignore
+    geometry: TGeometry = field(default=None)  # type: ignore
     confidence: float = 0
 
 
@@ -114,8 +116,10 @@ class TValueDetectionSchema(BaseSchema):
     Class for ValueDetection Schema
     """
     text = m.fields.String(data_key="Text", required=False, allow_none=False)
-    geometry = m.fields.Nested(TGeometrySchema, data_key="Geometry", required=False, allow_none=False)
-    confidence = m.fields.Float(data_key="Confidence", required=False, allow_none=False)
+    geometry = m.fields.Nested(
+        TGeometrySchema, data_key="Geometry", required=False, allow_none=False)
+    confidence = m.fields.Float(
+        data_key="Confidence", required=False, allow_none=False)
 
     @post_load
     def make_tvaluedetection(self, data, **kwargs):
@@ -136,7 +140,8 @@ class TFieldTypeSchema(BaseSchema):
     Class for FieldType Schema
     """
     text = m.fields.String(data_key="Text", required=False, allow_none=False)
-    confidence = m.fields.Float(data_key="Confidence", required=False, allow_none=False)
+    confidence = m.fields.Float(
+        data_key="Confidence", required=False, allow_none=False)
 
     @post_load
     def make_tfieldtype(self, data, **kwargs):
@@ -150,7 +155,8 @@ class TGroupProperty():
 
 
 class GroupProperty(BaseSchema):
-    types = m.fields.List(m.fields.String, data_key="Types", required=False, allow_none=True)
+    types = m.fields.List(m.fields.String, data_key="Types",
+                          required=False, allow_none=True)
     id = m.fields.String(data_key="Id", required=False, allow_none=True)
 
     @post_load
@@ -174,10 +180,14 @@ class TSummaryFieldSchema(BaseSchema):
     """
     Class for SummaryField Schema
     """
-    ftype = m.fields.Nested(TFieldTypeSchema, data_key="Type", required=False, allow_none=False)
-    labeldetection = m.fields.Nested(TLabelDetectionSchema, data_key="LabelDetection", required=False, allow_none=False)
-    valuedetection = m.fields.Nested(TValueDetectionSchema, data_key="ValueDetection", required=False, allow_none=False)
-    pagenumber = m.fields.Int(data_key="PageNumber", required=False, allow_none=False)
+    ftype = m.fields.Nested(
+        TFieldTypeSchema, data_key="Type", required=False, allow_none=False)
+    labeldetection = m.fields.Nested(
+        TLabelDetectionSchema, data_key="LabelDetection", required=False, allow_none=False)
+    valuedetection = m.fields.Nested(
+        TValueDetectionSchema, data_key="ValueDetection", required=False, allow_none=False)
+    pagenumber = m.fields.Int(data_key="PageNumber",
+                              required=False, allow_none=False)
     group_properties = m.fields.List(m.fields.Nested(GroupProperty),
                                      data_key="GroupProperties",
                                      required=False,
@@ -203,12 +213,16 @@ class TExpenseFieldSchema(BaseSchema):
     """
     Class for ExpenseField Schema
     """
-    ftype = m.fields.Nested(TFieldTypeSchema, data_key="Type", required=False, allow_none=False)
+    ftype = m.fields.Nested(
+        TFieldTypeSchema, data_key="Type", required=False, allow_none=False)
 
-    labeldetection = m.fields.Nested(TLabelDetectionSchema, data_key="LabelDetection", required=False, allow_none=True)
+    labeldetection = m.fields.Nested(
+        TLabelDetectionSchema, data_key="LabelDetection", required=False, allow_none=True)
 
-    valuedetection = m.fields.Nested(TValueDetectionSchema, data_key="ValueDetection", required=False, allow_none=False)
-    pagenumber = m.fields.Int(data_key="PageNumber", required=False, allow_none=False)
+    valuedetection = m.fields.Nested(
+        TValueDetectionSchema, data_key="ValueDetection", required=False, allow_none=False)
+    pagenumber = m.fields.Int(data_key="PageNumber",
+                              required=False, allow_none=False)
 
     @post_load
     def make_texpensefield(self, data, **kwargs):
@@ -252,9 +266,11 @@ class TLineItemGroupSchema(BaseSchema):
     Class for LineItemGroup Schema
     """
 
-    lineitemgroupindex = m.fields.Int(data_key="LineItemGroupIndex", required=False, allow_none=False)
+    lineitemgroupindex = m.fields.Int(
+        data_key="LineItemGroupIndex", required=False, allow_none=False)
 
-    lineitems = m.fields.List(m.fields.Nested(TLineItemSchema), data_key="LineItems", required=False, allow_none=False)
+    lineitems = m.fields.List(m.fields.Nested(
+        TLineItemSchema), data_key="LineItems", required=False, allow_none=False)
 
     @post_load
     def make_tlineitemgroup(self, data, **kwargs):
@@ -276,7 +292,8 @@ class TExpenseSchema(BaseSchema):
     Class for ExpenseDocument Schema
     """
 
-    expense_idx = m.fields.Int(data_key="ExpenseIndex", required=False, allow_none=False)
+    expense_idx = m.fields.Int(
+        data_key="ExpenseIndex", required=False, allow_none=False)
 
     summaryfields = m.fields.List(m.fields.Nested(TSummaryFieldSchema),
                                   data_key="SummaryFields",
@@ -422,10 +439,14 @@ class TAnalyzeExpenseDocumentSchema(BaseSchema):
                                        required=False,
                                        allow_none=False)
 
-    status_message = m.fields.String(data_key="StatusMessage", required=False, allow_none=False)
-    warnings = m.fields.Nested(TWarningsSchema, data_key="Warnings", required=False, allow_none=False)
-    job_status = m.fields.String(data_key="JobStatus", required=False, allow_none=False)
-    next_token = m.fields.String(data_key="NextToken", required=False, allow_none=False)
+    status_message = m.fields.String(
+        data_key="StatusMessage", required=False, allow_none=False)
+    warnings = m.fields.Nested(
+        TWarningsSchema, data_key="Warnings", required=False, allow_none=False)
+    job_status = m.fields.String(
+        data_key="JobStatus", required=False, allow_none=False)
+    next_token = m.fields.String(
+        data_key="NextToken", required=False, allow_none=False)
     response_metadata = m.fields.Nested(TResponseMetadataSchema,
                                         data_key="ResponseMetadata",
                                         required=False,
