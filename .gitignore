@@ -33,3 +33,4 @@ src-python/tests/call_textract_tables.py
 src-python/tests/*.ipynb
 src-python/tests/.ipynb_checkpoints
 .env
+env/
