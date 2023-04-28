@@ -1,10 +1,10 @@
 [tool.poetry]
 name = "streamline-trp"
-version = "0.1.2"
+version = "0.1.4"
 description = ""
 authors = ["Doug Qian <douglas@spirals.so>"]
 readme = "README.md"
-packages = [{include = "src-python"}]
+packages = [{include = "src-python/trp"}]
 
 [tool.poetry.dependencies]
 python = "^3.8"
